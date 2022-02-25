@@ -8,6 +8,7 @@ import java.util.Map;
 import com.openclassrooms.watchlist.domain.WatchlistItem;
 import com.openclassrooms.watchlist.exception.DuplicateTitleException;
 import com.openclassrooms.watchlist.service.WatchlistService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,7 +22,12 @@ import javax.validation.Valid;
 @Controller
 public class WatchlistController {
 	
-private WatchlistService watchlistService=new WatchlistService();
+private WatchlistService watchlistService;
+
+	@Autowired
+	public WatchlistController(WatchlistService watchlistService) {
+		this.watchlistService = watchlistService;
+	}
 
 	@GetMapping("/watchlistItemForm")
 	public ModelAndView showWatchlistItemForm(@RequestParam(required=false) Integer id) {
